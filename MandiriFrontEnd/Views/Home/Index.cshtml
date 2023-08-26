@@ -1,32 +1,35 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<style>
+    .btnAction{
+        margin-left:5px;
+    }
+</style>
 
 <div class="text-center">
-    <table id="myTable" class="display">
+    <form id="formTransaction">
+        <div class="form-group">
+            <button class="btn btn-primary" type="button" id="btnAdd" data-toggle="modal">Add <i class="far fa-life-ring fa-spin"></i></button>
+        </div>
+    </form>
+    <table id="tblSummary" class="table">
         <thead>
             <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
+                <th class="text-center" style="vertical-align:text-top">Action</th>
+                <th class="text-center">Category</th>
+                <th class="text-center">Description</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Row 1 Data 1</td>
-                <td>Row 1 asa 2</td>
-            </tr>
-            <tr>
-                <td>Row 2 Data 1</td>
-                <td>Row 2 Data 2</td>
-            </tr>
-        </tbody>
     </table>
 </div>
+<script src="../scripts/index.js"></script>
 
-@* @Url.Content("~/scripts/index.js"); *@
-<script src="c:\users\david\source\repos\mandiri test\mandirifrontend\mandirifrontend\scripts\index.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+@Html.Partial("~/Views/Home/_PopUpAdd.cshtml")
+@Html.Partial("~/Views/Home/_PopUpEdit.cshtml")
