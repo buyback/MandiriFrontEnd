@@ -6,8 +6,6 @@ var TableItem = {
     Data: [],
 }
 
-var DataSelected = {};
-
 $(document).ready(function () {
     Control.Init();
     Table.Init();
@@ -20,7 +18,7 @@ var Control = {
 
     Event: function () {
 
-        $("#btnAdd").on('click', function () {
+        $("#btnAddCategory").on('click', function () {
             $("#PopUpAdd").modal("toggle");
         })
     }
@@ -33,21 +31,47 @@ var Table = {
         TableCategory.Data.push({
             CategoryID: 1,
             Name: 'Beauty',
-            Description: "Beauty",
         }),
             TableCategory.Data.push({
                 CategoryID: 2,
                 Name: 'Electronics',
-                Description: "Electronics",
             }),
             TableCategory.Data.push({
                 CategoryID: 3,
                 Name: 'Books',
-                Description: "Books",
             })
 
         var tblSummary = $("#tblSummary").DataTable();
         tblSummary.clear().rows.add(TableCategory.Data).draw();
+
+
+        TableItem.Data.push({
+            CategoryID: 1,
+            Name: 'Beauty',
+            Item: "Facial Wash",
+            Description: "Biore"
+        }),
+        TableItem.Data.push({
+            CategoryID: 1,
+            Name: 'Beauty',
+            Item: "Toner",
+            Description: "Skintific"
+        }),
+        TableItem.Data.push({
+            CategoryID: 2,
+            Name: 'Electronics',
+            Item: 'Handphone',
+            Description: "Iphone IMAX",
+        }),
+        TableItem.Data.push({
+            CategoryID: 3,
+            Name: 'Books',
+            Item: 'Comics',
+            Description: "Miiko",
+        })
+
+        var tblSummaryItem = $("#tblSummaryItem").DataTable();
+        tblSummaryItem.clear().rows.add(TableItem.Data).draw();
 
     },
 
@@ -62,7 +86,7 @@ var Table = {
                 "emptyTable": "No data available in table",
             },
             "destroy": true,
-            "order": [[2, 'desc']],
+            "order": [[1, 'asc']],
             "columns": [
                 {
                     mRender: function (data,type,full) {
@@ -80,6 +104,41 @@ var Table = {
                     }
                 },
                 { data: "Name" },
+            ],
+            "columnDefs": [
+                { "targets": [0, 1], "className": "dt-center" },
+            ],
+            "fnDrawCallback": function () {
+                Table.Event();
+            }
+        });
+
+        var tblSummaryItem = $("#tblSummaryItem").DataTable({
+            "filter": false,
+            "orderCellsTop": true,
+            "language": {
+                "emptyTable": "No data available in table",
+            },
+            "destroy": true,
+            "order": [[1, 'asc']],
+            "columns": [
+                {
+                    mRender: function (data, type, full) {
+                        let strHTML = "";
+                        strHTML += `<button type='button' class='btn btn-sm btn-info btnView' title='View'>
+                        <i class='fa fa-hand-pointer'></i>
+                        </button>`;
+                        strHTML += `<button type='button' class='btn btn-sm btn-info btnUpdate' title='Update'>
+                        <i class='fa fa-pencil-alt'></i>
+                        </button>`;
+                        strHTML += `<button type='button' class='btn btn-sm btn-info btnDelete' title='Delete'>
+                        <i class='fa fa-eraser'></i>
+                        </button>`;
+                        return strHTML;
+                    }
+                },
+                { data: "Name" },
+                { data: "Item" },
                 { data: "Description" },
             ],
             "columnDefs": [
@@ -89,6 +148,7 @@ var Table = {
                 Table.Event();
             }
         });
+
 
         //var tblSummary = $("#tblSummary").DataTable({
         //    "orderCellsTop": true,
@@ -128,10 +188,25 @@ var Table = {
     },
 
     Event: function () {
+
+        $("#tblSummary tbody").on("click", "button.btnView", function (e) {
+            let table = $("#tblSummary").DataTable();
+            let data = table.row($(this).parents("tr")).data();
+            if (data != null) {
+                $(".btnActionUpdate").hide();
+                $("#UpdateTitle").text("Detail")
+                PopUpUpdate.Fill(data);
+                $("#PopUpUpdate").modal("toggle");
+            }
+        });
+
+
         $("#tblSummary tbody").on("click", "button.btnUpdate", function (e) {
             let table = $("#tblSummary").DataTable();
             let data = table.row($(this).parents("tr")).data();
             if (data != null) {
+                $(".btnActionUpdate").show();
+                $("#UpdateTitle").text("Update Category")
                 PopUpUpdate.Fill(data);
                 $("#PopUpUpdate").modal("toggle");
             }
@@ -147,6 +222,8 @@ var Table = {
                 } else {
                 }
             }
+            e.preventDefault();
+
         });
     }
 }
