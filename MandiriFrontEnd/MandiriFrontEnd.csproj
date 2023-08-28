@@ -8,10 +8,14 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\scripts\_popUpAdd.js" />
+    <Content Remove="wwwroot\scripts\_popUpAddItem.js" />
     <Content Remove="wwwroot\scripts\_popUpUpdate.js" />
+    <Content Remove="wwwroot\scripts\_popUpUpdateItem.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\scripts\_popUpAddItem.js" />
+    <None Include="wwwroot\scripts\_popUpUpdateItem.js" />
     <None Include="wwwroot\scripts\_popUpUpdate.js" />
     <None Include="wwwroot\scripts\_popUpAdd.js" />
     <None Include="wwwroot\scripts\index.js" />

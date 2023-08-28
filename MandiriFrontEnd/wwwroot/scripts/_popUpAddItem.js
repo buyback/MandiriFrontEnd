@@ -1,37 +1,36 @@
 ﻿$(document).ready(function () {
-    PopUpAdd.Init();
+    PopUpAddItem.Init();
 })
 
-var PopUpAdd = {
+var PopUpAddItem = {
     Init: function() {
         this.Event();
     },
 
     Event: function () {
-        $("#btnPopUpClose").on("click", function () {
-            $("#PopUpAdd").modal("toggle");
+        $("#btnPopUpCloseItem").on("click", function () {
+            $("#PopUpAddItem").modal("toggle");
         })
 
-        $("#btnPopUpSubmit").on("click", function () {
-            //let form = $("#formTransaction");
-            //if (form.parsley().validate()) {
-            PopUpAddFormTransaction.Submit();
-            //}
+        $("#btnPopUpSubmitItem").on("click", function () {
+            PopUpAddItemFormTransaction.Submit();
                 
         })
     }
 
 }
 
-var PopUpAddFormTransaction = {
+var PopUpAddItemFormTransaction = {
     Submit: function () {
         let params = {
-            categoryid: 1,
-            name: $("#tbxPopUpAddName").val()
+            itemID: 0,
+            categoryID: $("#selectCategory").val(),
+            name: $("#tbxPopUpAddItemName").val(),
+            description: $("#tarPopUpAddItemRemark").val()
         }
 
         $.ajax({
-            url: base_url + "Categories",
+            url: base_url + "Items",
             type: "POST",
             dataType: 'json',
             contentType: "application/json",

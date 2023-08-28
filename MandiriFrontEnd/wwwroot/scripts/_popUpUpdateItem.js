@@ -1,40 +1,43 @@
 ﻿var DataSelected = {};
 $(document).ready(function () {
-    PopUpUpdate.Init();
+    PopUpUpdateItem.Init();
 })
 
-var PopUpUpdate = {
+var PopUpUpdateItem = {
     Init: function () {
         this.Event();
     },
 
     Fill: function (data) {
         DataSelected = data;
-        $("#tbxUpdateName").val(data.Name);
-        $("#tarUpdateRemark").val(data.Description);
+        $("#selectCategoryItem").val(data.CategoryID);
+        $("#tbxUpdateItemName").val(data.Name);
+        $("#tarUpdateItemRemark").val(data.Description);
     },
 
     Event: function () {
-        $("#btnPopUpUpdateClose").on("click", function () {
-            $("#PopUpUpdate").modal("toggle");
+        $("#btnPopUpUpdateItemClose").on("click", function () {
+            $("#PopUpUpdateItem").modal("toggle");
         })
 
-        $("#btnPopUpUpdateSubmit").on("click", function () {
-            PopUpUpdateFormTransaction.Submit();
+        $("#btnPopUpUpdateItemSubmit").on("click", function () {
+            PopUpUpdateItemFormTransaction.Submit();
 
         })
     }
 }
 
-var PopUpUpdateFormTransaction = {
+var PopUpUpdateItemFormTransaction = {
     Submit: function () {
         let params = {
-            categoryID: DataSelected.CategoryID,
-            name: $("#tbxUpdateName").val(),
+            itemID: DataSelected.ItemID,
+            categoryID: $("#selectCategoryItem").val(),
+            name: $("#tbxUpdateItemName").val(),
+            description: $("#tarUpdateItemRemark").val()
         }
 
         $.ajax({
-            url: base_url + "Categories",
+            url: base_url + "Items",
             type: "PUT",
             dataType: 'json',
             contentType: "application/json",
@@ -42,7 +45,7 @@ var PopUpUpdateFormTransaction = {
             cache: false,
             success: function (data) {
                 if (data != null) {
-                    $("#PopUpUpdate").modal("toggle");
+                    $("#PopUpUpdateItem").modal("toggle");
                     window.location.reload();
                     //var tblSummary = $("#tblSummary").DataTable();
                     //tblSummary.clear().rows.add(TableCategory.Data).draw();
@@ -51,9 +54,9 @@ var PopUpUpdateFormTransaction = {
             },
             // Error handling
             error: function (error) {
-                $("#PopUpUpdate").modal("toggle");
-                window.location.reload();
+                $("#PopUpUpdateItem").modal("toggle");
                 console.log(`Error ${error}`);
+                window.location.reload();
             }
         });
 
