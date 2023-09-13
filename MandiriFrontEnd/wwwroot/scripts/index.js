@@ -28,6 +28,18 @@ var Control = {
         $("#btnAddItem").on('click', function () {
             $("#PopUpAddItem").modal("toggle");
         })
+
+        //1st run
+        $('#foo').css('left', '+=100px');
+        function animateDiv() {
+            var abc = document.getElementById('foo');
+            if (abc.style.left == '0px')
+                $('#foo').css('left', '+=100px');
+            else
+                $("#foo").css({ 'left': 0 });
+            
+        }
+        setInterval(animateDiv, 5000);
     }
 }
 

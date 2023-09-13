@@ -11,6 +11,24 @@
     .btnAction{
         margin-left:5px;
     }
+
+    #foo {
+        position: relative;
+        zoom: 1;
+        width: 100px;
+        height: 100px;
+        left: 0;
+        -webkit-transition: all 0.5s ease-out;
+        -moz-transition: all 0.5s ease-out;
+        -o-transition: all 0.5s ease-out;
+        transition: all 5s ease-out;
+    }
+
+    img {
+        display: inline-block;
+        width:50px;
+        height:50px;
+    }
 </style>
 
 <div class="text-center">
@@ -46,7 +64,17 @@
                     </thead>
                 </table>
             </div>
+
+            
         </div>
+    </div>
+
+    <div id="foo">
+        <img src="~/Content/Icons/walk.gif" />
+        <img src="~/Content/Icons/running.gif" />
+        <img src="~/Content/Icons/cycling.gif" />
+        <img src="~/Content/Icons/no-alcohol.gif" />
+        <img src="~/Content/Icons/no-smoking.gif" />
     </div>
 </div>
 <script src="../scripts/index.js"></script>
